@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('post_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->string('name')->nullable(); // guest comments
+            $table->string('email')->nullable();
+            $table->text('content');
+            $table->boolean('approved')->default(false);
             $table->timestamps();
         });
     }
